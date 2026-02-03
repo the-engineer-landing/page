@@ -1,36 +1,314 @@
-<!-- FORM — EARLY ACCESS (FormSubmit) -->
-<section id="early-access" class="card">
-  <div class="tag">Request Early Access</div>
-  <h2>Tell me a bit about you</h2>
-  <p>
-    Early access is limited and reviewed. If accepted, you’ll receive the Micro-Factory Map when it opens.
-  </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Engineer — Micro-Factory Early Access</title>
 
-  <form action="https://formsubmit.co/engineer.system01@gmail.com" method="POST">
-    <!-- FormSubmit settings -->
-    <input type="hidden" name="_subject" value="New Early Access Signup — The Engineer">
-    <input type="hidden" name="_captcha" value="false">
-    <!-- Change this to your real thanks URL -->
-    <input type="hidden" name="_next" value="https://the-engineer-landing.github.io/page/thanks.html">
-    <!-- Optional: auto-reply to lead -->
-    <input type="hidden" name="_autoresponse" value="Thanks for joining The Engineer early access. You’re on the list — I’ll send the Micro-Factory Map as soon as it opens.">
+  <style>
+    :root{
+      --bg:#0f1115;
+      --panel:#111827;
+      --panel2:#0b1220;
+      --text:#f1f5f9;
+      --muted:#cbd5e1;
+      --muted2:#94a3b8;
+      --line:rgba(255,255,255,.08);
+      --line2:rgba(255,255,255,.12);
+      --brandA:#7cf2c9;
+      --brandB:#7aa7ff;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --r16:16px;
+      --r20:20px;
+    }
 
-    <div class="formgrid">
-      <div>
-        <label for="fullName">Full name</label>
-        <input id="fullName" name="Full name" type="text" placeholder="Your full name" required>
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      padding:56px 20px 72px;
+    }
+
+    h1{ font-size:44px; margin:0 0 14px; }
+    h2{ font-size:30px; margin:0 0 12px; }
+    h3{ font-size:18px; margin:0 0 10px; }
+
+    p{ color:var(--muted); margin:0 0 12px; }
+
+    section{ margin-bottom:48px; }
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--r20);
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .panel2{
+      background:var(--panel2);
+      border:1px solid var(--line);
+      border-radius:var(--r16);
+      padding:16px;
+    }
+
+    .tag{
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--brandA);
+      margin-bottom:12px;
+    }
+
+    .btn{
+      padding:14px 24px;
+      border-radius:14px;
+      border:none;
+      cursor:pointer;
+      font-weight:900;
+      font-size:16px;
+      background:linear-gradient(135deg,var(--brandA),var(--brandB));
+      color:#061018;
+      text-decoration:none;
+      display:inline-block;
+      margin-top:14px;
+    }
+
+    .note{
+      font-size:13px;
+      color:var(--muted2);
+      margin-top:8px;
+    }
+
+    /* GRID */
+    .grid-hero{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+    }
+
+    @media(max-width:900px){
+      .grid-hero{ grid-template-columns:1fr; }
+      h1{ font-size:36px; }
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    @media(max-width:760px){
+      .grid2{ grid-template-columns:1fr; }
+    }
+
+    /* VIDEO */
+    .video-portrait{
+      aspect-ratio:9/16;
+      min-height:520px;
+      max-width:420px;
+      margin:12px auto 0;
+      border-radius:14px;
+      background:linear-gradient(135deg,#1f2933,#020617);
+      border:1px solid var(--line2);
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .play{
+      width:78px;height:78px;
+      border-radius:50%;
+      background:rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.14);
+    }
+
+    /* FORM */
+    .formgrid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+
+    @media(max-width:760px){
+      .formgrid{ grid-template-columns:1fr; }
+    }
+
+    label{
+      display:block;
+      font-size:12px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin:12px 0 6px;
+    }
+
+    input, textarea{
+      width:100%;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid var(--line2);
+      background:#0b0f14;
+      color:var(--text);
+    }
+
+    textarea{ min-height:120px; }
+
+    /* ✅ CHECKBOX LGPD — CORRIGIDO */
+    .checkboxRow{
+      display:grid;
+      grid-template-columns:20px 1fr;
+      gap:12px;
+      align-items:flex-start;
+      margin-top:14px;
+      padding:12px;
+      border-radius:12px;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+    }
+
+    .checkboxRow input[type="checkbox"]{
+      width:18px;
+      height:18px;
+      margin-top:2px;
+      flex-shrink:0;
+    }
+
+    .smallprint{
+      font-size:11px;
+      color:#7c8aa3;
+      line-height:1.45;
+      margin-top:8px;
+    }
+
+    footer{
+      margin-top:40px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      font-size:12px;
+      color:var(--muted2);
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <section class="grid-hero">
+
+    <div class="card">
+      <div class="tag">Micro-Factory Early Access</div>
+      <h1>Build a small, real manufacturing business — not a side hustle.</h1>
+      <p>
+        A proven micro-factory system using 3D printing to solve recurring problems for local businesses.
+        Start with one machine. Scale with execution.
+      </p>
+
+      <div class="grid2">
+        <div class="panel2">
+          <strong>$3k – $8k / month</strong>
+          <p class="note">Typical execution with one printer and repeat local demand.</p>
+        </div>
+        <div class="panel2">
+          <strong>$15k+ / month</strong>
+          <p class="note">Scalable after 3+ months with guidance, standardized parts and throughput.</p>
+        </div>
       </div>
 
-      <div>
-        <label for="age">Age (14+)</label>
-        <input id="age" name="Age" type="number" min="14" placeholder="14" required>
+      <a href="#early-access" class="btn">Request Early Access</a>
+      <div class="note">Limited spots • Reviewed manually</div>
+    </div>
+
+    <div class="card">
+      <h3>Watch before you decide (30s)</h3>
+      <p class="note">Printing what people need — again and again.</p>
+      <div class="video-portrait">
+        <div class="play"></div>
+      </div>
+      <a href="#early-access" class="btn">Request Early Access</a>
+    </div>
+
+  </section>
+
+  <!-- FORM -->
+  <section id="early-access" class="card">
+    <div class="tag">Request Early Access</div>
+    <h2>Tell me a bit about you</h2>
+    <p>Early access is limited and reviewed.</p>
+
+    <form action="https://formsubmit.co/engineer.system01@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New Early Access Signup — The Engineer">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://the-engineer-landing.github.io/page/thanks.html">
+
+      <div class="formgrid">
+        <div>
+          <label>Full name</label>
+          <input type="text" name="Full name" required>
+        </div>
+        <div>
+          <label>Age (14+)</label>
+          <input type="number" name="Age" min="14" required>
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" name="Email" required>
+        </div>
+        <div>
+          <label>Phone (optional)</label>
+          <input type="tel" name="Phone">
+        </div>
       </div>
 
-      <div>
-        <label for="email">Email</label>
-        <input id="email" name="Email" type="email" placeholder="you@email.com" required>
+      <label>Your interest</label>
+      <textarea name="Interest" required></textarea>
+
+      <label>Your biggest frustration</label>
+      <textarea name="Frustration" required></textarea>
+
+      <!-- LGPD -->
+      <div class="checkboxRow">
+        <input type="checkbox" name="LGPD consent" required>
+        <div>
+          <strong>Privacy & consent (LGPD)</strong>
+          <div class="smallprint">
+            By submitting, you agree that The Engineer may process your data (name, email, age, message; phone optional)
+            to contact you about early access and updates and to segment the waiting list.
+          </div>
+        </div>
       </div>
 
-      <div>
-        <label for="phone">Phone (optional)</label>
-        <input id="phone"
+      <button class="btn" type="submit">Submit Request</button>
+
+      <div class="smallprint">
+        Educational content only. Not a guarantee of income. Results vary based on execution and demand.
+      </div>
+    </form>
+  </section>
+
+  <footer>
+    <div>© 2026 The Engineer</div>
+    <div>Privacy • Terms</div>
+  </footer>
+
+</div>
+</body>
+</html>
