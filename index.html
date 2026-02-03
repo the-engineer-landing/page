@@ -82,13 +82,11 @@
     }
     .ctaTitle{font-weight:800; font-size:14px; letter-spacing:.4px; text-transform:uppercase; margin-bottom:8px;}
     .ctaHint{color:var(--muted); font-size:13px; margin:0 0 14px;}
-
-    form{display:flex; gap:10px; align-items:stretch; flex-wrap:wrap;}
     .row{display:flex; gap:10px; width:100%; flex-wrap:wrap;}
     .field{flex:1 1 240px; min-width: 220px;}
     .field.small{flex: 0 0 160px; min-width:160px;}
     label{display:block; font-size:12px; color:var(--muted); margin:0 0 6px;}
-    input, select{
+    input, select, textarea{
       width:100%;
       padding:14px 14px;
       border-radius: 12px;
@@ -98,23 +96,12 @@
       outline:none;
       font-size:14px;
     }
-    input::placeholder{color:#7f8aa0}
-    input:focus, select:focus{border-color: rgba(138,180,255,.65); box-shadow: 0 0 0 3px rgba(138,180,255,.12);}
-
-    .consent{
-      width:100%;
-      padding:12px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(7,9,12,.28);
-      color: var(--muted);
-      font-size:12px;
-      line-height:1.35;
+    textarea{min-height: 110px; resize: vertical;}
+    input::placeholder, textarea::placeholder{color:#7f8aa0}
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(138,180,255,.65);
+      box-shadow: 0 0 0 3px rgba(138,180,255,.12);
     }
-    .consent strong{color:var(--text)}
-    .checkrow{display:flex; gap:10px; align-items:flex-start; margin-top:8px;}
-    .checkrow input[type="checkbox"]{width:auto; margin-top:2px; transform: scale(1.05);}
-    .checkrow a{color:var(--text); text-decoration:underline; text-underline-offset: 2px;}
 
     button{
       border:0;
@@ -198,16 +185,22 @@
       font-size: 13px;
     }
     .es b{color:var(--text)}
-    .thanks{
-      display:none;
-      margin-top:12px;
-      padding:12px 14px;
+
+    .consent{
+      width:100%;
+      padding:12px 12px;
       border-radius: 14px;
-      border:1px solid rgba(182,240,156,.25);
-      background: rgba(182,240,156,.10);
-      color: rgba(233,238,245,.92);
-      font-size: 13px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(7,9,12,.28);
+      color: var(--muted);
+      font-size:12px;
+      line-height:1.35;
     }
+    .consent strong{color:var(--text)}
+    .checkrow{display:flex; gap:10px; align-items:flex-start; margin-top:8px;}
+    .checkrow input[type="checkbox"]{width:auto; margin-top:2px; transform: scale(1.05);}
+    .checkrow a{color:var(--text); text-decoration:underline; text-underline-offset: 2px;}
+
     .bot-field{
       position:absolute !important;
       left:-9999px !important;
@@ -223,7 +216,7 @@
 <body>
   <div class="wrap">
     <div class="topbar">
-      <a class="brand" href="#" aria-label="The Engineer">
+      <a class="brand" href="./" aria-label="The Engineer">
         <div class="logo">E</div>
         <div>
           <strong>The Engineer</strong>
@@ -236,6 +229,7 @@
     <div class="hero">
       <section class="card heroLeft">
         <h1>Stop trading hours for pay.<br/>Build a real business with one machine.</h1>
+
         <p class="sub">
           I’m opening early access to a simple <b>Micro-Factory</b> system that shows how people are generating income with 3D printing
           by selling <b>solutions</b> — not random products.
@@ -257,11 +251,12 @@
 
         <div class="ctaBox">
           <div class="ctaTitle">Get early access</div>
-          <p class="ctaHint">Tell me a bit about you. I’ll send the Micro-Factory Map when it opens.</p>
+          <p class="ctaHint">
+            Tell me a bit about you. I’ll send the Micro-Factory Map when it opens.
+          </p>
 
-          <!-- FormSubmit: sends the submission to engineer.system01@gmail.com -->
+          <!-- FormSubmit: sends to engineer.system01@gmail.com -->
           <form method="post" action="https://formsubmit.co/engineer.system01@gmail.com" id="early-access-form">
-
             <!-- Honeypot anti-bot -->
             <div class="bot-field" aria-hidden="true">
               <label>Leave this empty</label>
@@ -271,10 +266,13 @@
             <!-- FormSubmit configuration -->
             <input type="hidden" name="_subject" value="New Early Access Signup — The Engineer" />
             <input type="hidden" name="_captcha" value="false" />
-            <!-- Optional: use an autoresponse (edit text if you want) -->
+
+            <!-- redirect to thanks page -->
+            <input type="hidden" name="_next" value="https://the-engineer-landing.github.io/page/thanks.html" />
+
+            <!-- Optional: autoresponse -->
             <input type="hidden" name="_autoresponse" value="Thanks for joining The Engineer early access. You’re on the list — I’ll send the Micro-Factory Map as soon as it opens." />
 
-            <!-- UX order: name -> email -> phone -> profession -> age -->
             <div class="row">
               <div class="field">
                 <label for="name">Full name</label>
@@ -300,14 +298,30 @@
 
               <div class="field small">
                 <label for="age">Age</label>
-                <input id="age" type="number" name="age" placeholder="18+" min="14" max="99" inputmode="numeric" required />
+                <input id="age" type="number" name="age" placeholder="14+" min="14" max="99" inputmode="numeric" required />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label for="interest">Tell me your interest — that’s enough.</label>
+                <textarea
+                  id="interest"
+                  name="interest"
+                  placeholder="Write freely. I’m reading this — and I want to understand what you’re aiming for."
+                  required
+                ></textarea>
+
+                <p class="ctaHint" style="margin:10px 0 0;">
+                  Say it in your own words — no judgment. You’re not talking into the void here.
+                </p>
               </div>
             </div>
 
             <!-- LGPD / privacy consent -->
             <div class="consent" role="group" aria-label="Privacy consent">
-              <strong>Privacy & consent (LGPD)</strong><br/>
-              By submitting, you agree that The Engineer may process your data (name, email, and optionally phone) to:
+              <strong>Privacy &amp; consent (LGPD)</strong><br/>
+              By submitting, you agree that The Engineer may process your data (name, email, profession, age, and your message; phone is optional) to:
               (1) contact you about early access and updates, and (2) segment the waiting list to improve communication.
               You can request access, correction, or deletion of your data anytime by emailing:
               <b>engineer.system01@gmail.com</b>.
@@ -319,23 +333,20 @@
               </div>
             </div>
 
-            <button type="submit">Join the Early Access List</button>
+            <div style="margin-top:12px;">
+              <button type="submit">Join the Early Access List</button>
+            </div>
 
+            <div class="fine">
+              No spam. No hype. Just direction.
+              <small>Early members get first access to the Micro-Factory Map + a limited setup bonus when the system opens.</small>
+            </div>
+
+            <div class="es">
+              <b>Español:</b> Acceso anticipado al sistema Micro-Factory. Sin hype. Solo dirección:
+              nichos, plataformas y qué vender para empezar con una impresora.
+            </div>
           </form>
-
-          <div id="thanks" class="thanks" role="status" aria-live="polite">
-            ✅ Thanks! You’re on the list. Please check your email for confirmation (first time only).
-          </div>
-
-          <div class="fine">
-            No spam. No hype. Just direction.
-            <small>Early members get first access to the Micro-Factory Map + a limited setup bonus when the system opens.</small>
-          </div>
-
-          <div class="es">
-            <b>Español:</b> Acceso anticipado al sistema Micro-Factory. Sin hype. Solo dirección:
-            nichos, plataformas y qué vender para empezar con una impresora.
-          </div>
         </div>
       </section>
 
@@ -394,7 +405,7 @@
       <h2 style="margin:0 0 8px; font-size:16px;">Privacy Policy (LGPD)</h2>
       <p style="margin:0 0 10px; color:var(--muted); font-size:13px;">
         <b>Controller:</b> The Engineer (contact: <b>engineer.system01@gmail.com</b>)<br/>
-        <b>Data collected:</b> name, email, profession, age; phone is optional.<br/>
+        <b>Data collected:</b> name, email, profession, age, interest/message; phone is optional.<br/>
         <b>Purpose:</b> manage early-access waitlist, send updates, and improve segmentation/communication.<br/>
         <b>Legal basis:</b> consent (LGPD).<br/>
         <b>Retention:</b> until you request deletion or the early-access program ends.<br/>
@@ -417,15 +428,6 @@
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Basic UX: show a local thank-you message after submit click (visual feedback).
-    // Note: FormSubmit will redirect; this just improves perceived responsiveness.
-    const form = document.getElementById('early-access-form');
-    const thanks = document.getElementById('thanks');
-    form.addEventListener('submit', function(){
-      thanks.style.display = 'block';
-    });
   </script>
 </body>
 </html>
-
