@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Engineer — Micro‑Factory Early Access</title>
+  <meta name="description" content="Early access to a simple Micro‑Factory system for building a real 3D printing business by selling solutions, not products."/>
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --text:#e9eef5;
+      --muted:#a8b3c2;
+      --accent:#8ab4ff;
+      --accent2:#b6f09c;
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --radius: 18px;
+      --max: 1080px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1100px 700px at 20% 0%, rgba(138,180,255,.18), transparent 55%),
+                  radial-gradient(900px 700px at 90% 20%, rgba(182,240,156,.10), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.45;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 70px;}
+    .topbar{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:8px 0 22px;}
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none;}
+    .logo{
+      width:42px; height:42px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(138,180,255,.95), rgba(182,240,156,.85));
+      display:grid; place-items:center;
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+      color:#0b0d10; font-weight:800; letter-spacing:.5px;
+    }
+    .brand strong{font-size:14px; letter-spacing:.6px; text-transform:uppercase}
+    .brand span{display:block; font-size:12px; color:var(--muted); margin-top:2px}
+    .pill{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(16,20,26,.55);
+      padding:8px 12px; border-radius:999px;
+      color:var(--muted); font-size:12px; white-space:nowrap;
+    }
+
+    .hero{display:grid; grid-template-columns: 1.05fr .95fr; gap:22px; align-items:stretch; margin-top:6px;}
+    @media (max-width: 900px){ .hero{grid-template-columns:1fr;} }
+
+    .card{
+      background: rgba(16,20,26,.72);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .heroLeft{padding:28px 26px;}
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(34px, 4.2vw, 56px);
+      line-height:1.03;
+      letter-spacing:-.02em;
+    }
+    .sub{margin:10px 0 18px; color: var(--muted); font-size: 16px; max-width: 56ch;}
+    .tagrow{display:flex; flex-wrap:wrap; gap:10px; margin:18px 0 22px;}
+    .tag{
+      font-size:12px; color:var(--muted);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(11,13,16,.35);
+      padding:8px 10px; border-radius: 999px;
+    }
+    .tag b{color:var(--text); font-weight:700}
+
+    .ctaBox{
+      padding:22px 20px;
+      background: linear-gradient(180deg, rgba(138,180,255,.12), rgba(182,240,156,.06));
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .ctaTitle{font-weight:800; font-size:14px; letter-spacing:.4px; text-transform:uppercase; margin-bottom:10px;}
+    form{display:flex; gap:10px; align-items:stretch; flex-wrap:wrap;}
+    input[type="email"]{
+      flex: 1 1 260px;
+      padding:14px 14px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(7,9,12,.55);
+      color:var(--text);
+      outline:none;
+      font-size:14px;
+    }
+    input[type="email"]::placeholder{color:#7f8aa0}
+    button{
+      border:0;
+      padding:14px 16px;
+      border-radius: 12px;
+      font-weight:800;
+      letter-spacing:.2px;
+      cursor:pointer;
+      background: linear-gradient(135deg, rgba(138,180,255,1), rgba(182,240,156,1));
+      color:#0b0d10;
+      min-width: 190px;
+    }
+    button:hover{filter:brightness(1.05)}
+    .fine{margin-top:10px; font-size:12px; color:var(--muted);}
+    .fine small{display:block; margin-top:4px; opacity:.9}
+
+    .heroRight{display:flex; flex-direction:column;}
+    .panel{padding:22px 22px 18px; border-bottom:1px solid rgba(255,255,255,.08);}
+    .kicker{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px; color:var(--muted);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(11,13,16,.28);
+      padding:7px 10px; border-radius:999px;
+    }
+    .kicker i{width:8px; height:8px; border-radius:99px; background: var(--accent2); display:inline-block;}
+    .panel h2{margin:14px 0 10px; font-size:18px; letter-spacing:-.01em;}
+    .panel p{margin:0 0 14px; color:var(--muted)}
+    .list{margin:0; padding:0; list-style:none; display:grid; gap:10px;}
+    .list li{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px 12px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(7,9,12,.35);
+      border-radius: 14px;
+      color: var(--muted);
+      font-size:13px;
+    }
+    .list li b{color:var(--text)}
+    .check{
+      width:18px; height:18px; margin-top:1px;
+      border-radius:6px;
+      background: rgba(182,240,156,.18);
+      border:1px solid rgba(182,240,156,.35);
+      display:grid; place-items:center;
+      color: var(--accent2);
+      font-weight:900;
+      flex: 0 0 auto;
+    }
+
+    .section{margin-top:22px; display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px;}
+    @media (max-width: 900px){ .section{grid-template-columns:1fr;} }
+    .mini{padding:18px;}
+    .mini h3{margin:0 0 8px; font-size:14px; letter-spacing:.2px; text-transform:uppercase}
+    .mini p{margin:0; color:var(--muted); font-size:13px}
+    .mini .hint{margin-top:10px; font-size:12px; color:#8ea0b8}
+
+    .divider{margin:26px 0 10px; height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);}
+    .footer{
+      margin-top:26px;
+      color:var(--muted);
+      font-size:12px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      opacity:.92;
+    }
+    .footlinks{display:flex; gap:12px; flex-wrap:wrap}
+    .footlinks a{color:var(--muted); text-decoration:none}
+    .footlinks a:hover{text-decoration:underline}
+
+    .es{
+      margin-top:10px;
+      padding:12px 14px;
+      border-radius: 14px;
+      border:1px dashed rgba(255,255,255,.14);
+      background: rgba(7,9,12,.22);
+      color: rgba(233,238,245,.88);
+      font-size: 13px;
+    }
+    .es b{color:var(--text)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="#" aria-label="The Engineer">
+        <div class="logo">E</div>
+        <div>
+          <strong>The Engineer</strong>
+          <span>Micro‑Factory mindset</span>
+        </div>
+      </a>
+      <div class="pill">Early access • Limited setup bonus</div>
+    </div>
+
+    <div class="hero">
+      <section class="card heroLeft">
+        <h1>Stop trading hours for pay.<br/>Build a real business with one machine.</h1>
+        <p class="sub">
+          I’m opening early access to a simple <b>Micro‑Factory</b> system that shows how people are generating income with 3D printing
+          by selling <b>solutions</b> — not random products.
+        </p>
+
+        <div class="tagrow" aria-label="Key ideas">
+          <div class="tag"><b>One‑Machine Rule</b> — start small</div>
+          <div class="tag"><b>Local &gt; Online</b> — less competition</div>
+          <div class="tag"><b>Solutions</b> — repeat demand</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <p class="sub" style="margin-top:14px">
+          This isn’t a “printing tutorial.” It’s a step-by-step path to building a real business:
+          <b>niches</b>, <b>platforms</b>, and the right types of parts —
+          designed to create active income in the <b>$3k–$8k range</b> for people who execute the system.
+        </p>
+
+        <div class="ctaBox">
+          <div class="ctaTitle">Get early access</div>
+
+          <!--
+            IMPORTANT:
+            Replace the form action below with your email provider endpoint (MailerLite, ConvertKit, etc.)
+            If you don't have one yet, you can temporarily use FormSubmit (free):
+            action="https://formsubmit.co/YOUR_EMAIL"
+            (FormSubmit will email you the signups.)
+          -->
+          <form method="post" action="#" id="early-access-form">
+            <input type="email" name="email" placeholder="Enter your email" required />
+            <button type="submit">Join the Early Access List</button>
+          </form>
+
+          <div class="fine">
+            No spam. No hype. Just direction.
+            <small>Early members get first access to the Micro‑Factory Map + a limited setup bonus when the system opens.</small>
+          </div>
+
+          <div class="es">
+            <b>Español:</b> Acceso anticipado al sistema Micro‑Factory. Sin hype. Solo dirección:
+            nichos, plataformas y qué vender para empezar con una impresora.
+          </div>
+        </div>
+      </section>
+
+      <aside class="card heroRight">
+        <div class="panel">
+          <div class="kicker"><i></i> Why most people fail with 3D printing</div>
+          <h2>They start with “products”.</h2>
+          <p>
+            Toys and gadgets create price wars. Real businesses pay for fixes — parts that break, problems that repeat,
+            and solutions that work.
+          </p>
+          <ul class="list">
+            <li><span class="check">✓</span><span><b>Demand already exists</b> (you don’t “create” it).</span></li>
+            <li><span class="check">✓</span><span><b>Local clients reorder</b> when the problem comes back.</span></li>
+            <li><span class="check">✓</span><span><b>Simple parts win</b> because they solve urgent pain.</span></li>
+          </ul>
+        </div>
+
+        <div class="panel" style="border-bottom:0">
+          <div class="kicker"><i></i> What early access includes</div>
+          <h2>The Micro‑Factory Map (first).</h2>
+          <p>
+            A clear mental model of how the business works — without giving away the operational “how” publicly.
+          </p>
+          <ul class="list">
+            <li><span class="check">✓</span><span><b>Correct niches</b> where businesses already pay.</span></li>
+            <li><span class="check">✓</span><span><b>Platforms</b> that don’t require followers.</span></li>
+            <li><span class="check">✓</span><span><b>Path to income</b> without unnecessary barriers.</span></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <section class="section">
+      <div class="card mini">
+        <h3>For people who want real</h3>
+        <p>Not hype. Not “passive income.” A boring, reliable model built on repeat demand.</p>
+        <div class="hint">If you stop working, your income stops. Systems change that.</div>
+      </div>
+      <div class="card mini">
+        <h3>No face required</h3>
+        <p>Build quietly. Sell solutions locally. Let the output speak.</p>
+        <div class="hint">Engineers don’t chase money — they design systems.</div>
+      </div>
+      <div class="card mini">
+        <h3>Start small, scale later</h3>
+        <p>One machine is enough to validate demand. Scale comes after consistency.</p>
+        <div class="hint">Small start. Real clients. Repeat.</div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>© <span id="y"></span> The Engineer • Educational content • Not a guarantee of income</div>
+      <div class="footlinks">
+        <a href="#" onclick="alert('Add your privacy policy URL here'); return false;">Privacy</a>
+        <a href="#" onclick="alert('Add your terms URL here'); return false;">Terms</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
